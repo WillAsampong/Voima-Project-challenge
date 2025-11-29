@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react'
-import { motion } from "motion/react"
+import { easeIn, motion } from "motion/react"
 import './App.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faGithub, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons'
-import { faArrowDown, faCircleUser, faDroplet, } from '@fortawesome/free-solid-svg-icons'
+import { faArrowDown, faArrowRight, faArrowUpRightDots, faCheckCircle, faCircleExclamation, faCircleUser, faDroplet, } from '@fortawesome/free-solid-svg-icons'
 
 const Navbar = () => {
 
@@ -11,7 +11,9 @@ const Navbar = () => {
     <header className="absolute z-20 top-0 bg-transparent w-full">
       <nav className='py-6 mx-8 flex justify-between items-center'>
         <div className="logo">
-          <h3 className='uppercase text-white font-bold text-xl tracking-wider'>VOIMA</h3>
+          <h3 className='uppercase text-white font-bold text-xl tracking-wider'>VOIMA – 
+            <span className='text-sm italic tracking-widest lowercase font-thin'> Your daily hydration tracker</span>
+          </h3>
         </div>
 
         <div className='text-white flex items-center gap-x-1'>
@@ -79,7 +81,7 @@ const Hero = ({ handleScroll }) => {
             className='bg-white text-sm px-4 md:px-6 py-1.5 md:py-2 font-normal md:font-semibold hover:bg-transparent hover:text-white transition-all ease-linear border hover:border-gray-400 cursor-pointer flex items-center justify-evenly gap-x-1' 
             onClick={handleScroll}>
               Get Started 
-              <span className='animate-bounce '><FontAwesomeIcon icon={faArrowDown} /></span>
+              <span className=' '><FontAwesomeIcon icon={faArrowRight} /></span>
           </button>
         </div>
       </motion.div>
@@ -87,9 +89,14 @@ const Hero = ({ handleScroll }) => {
   )
 }
 
-
-
-const MainSection = ({ sectionRef, glassesOfWater, setGlassesOfWater, submitted, setSubmitted, handleSubmit }) => {
+const MainSection = ({ 
+  sectionRef, 
+  glassesOfWater, 
+  setGlassesOfWater, 
+  submitted, 
+  setSubmitted, 
+  handleSubmit 
+}) => {
   const today = new Date().toLocaleDateString("en-UK", {
     day: "2-digit",
     month: "long",
@@ -98,20 +105,55 @@ const MainSection = ({ sectionRef, glassesOfWater, setGlassesOfWater, submitted,
 
   const getFeedback = () => {
 
+    const goalGlasses = 8;
+
+    switch (true) {
+      case glassesOfWater >= goalGlasses:
+        return {
+          type: "excellent",
+          icon: <FontAwesomeIcon icon={faCheckCircle} />,
+          message: "Great work staying hydrated today!",
+          details: "Consistent hydration is one of the best ways to support your health."
+        };
+
+      case glassesOfWater >= goalGlasses - 2:
+        return {
+          type: "almost",
+          icon: <FontAwesomeIcon icon={faArrowUpRightDots} />,
+          message: "You're almost there.",
+          details: `Try to get ${goalGlasses - glassesOfWater} more glass${
+            goalGlasses - glassesOfWater > 1 ? "es" : ""
+          }.`
+        };
+
+      default:
+        return {
+          type: "concern",
+          icon: <FontAwesomeIcon icon={faCircleExclamation} />,
+          message: "You're below your hydration goal.",
+          details: "Try to drink more water throughout the day to stay healthy."
+        };
+    }
   };
+
 
   const feedback = submitted ? getFeedback() : null;
 
   return (
-    <main className='min-h-screen' ref={sectionRef}>
-      <div className='max-w-md mx-auto w-full px-6 py-10 shadow-lg my-12 bg-white'>
+    <main className='min-h-screen flex justify-center items-center' ref={sectionRef}>
+      <motion.div 
+        className='max-w-md mx-auto w-full px-6 py-10 shadow-lg my-12 bg-white'
+        initial={{ y: 30, opacity: 0, }}
+        animate={{ y: 0, opacity: 1, }}
+        transition={{ ease: "easeIn", duration: 0.5, delay: 0.2 }}
+        >
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
           <div className="bg-blue-100 p-3 rounded-full">
-            <FontAwesomeIcon icon={faDroplet} />
+            <FontAwesomeIcon icon={faDroplet} color='blue' />
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-gray-900">Daily Hydration</h1>
+            <h1 className="text-2xl font-semibold text-blue-700">Daily Hydration</h1>
             <p className="text-sm text-gray-600">{today}</p>
           </div>
         </div>
@@ -139,11 +181,17 @@ const MainSection = ({ sectionRef, glassesOfWater, setGlassesOfWater, submitted,
               
               <button
                 onClick={() => setGlassesOfWater(glassesOfWater + 1)}
-                className="w-12 h-12 rounded-full border border-blue-400 hover:border-2 text-2xl font-semibold cursor-pointer transition-colors"
+                className="w-12 h-12 rounded-full border border-blue-400 hover:bg-blue-50 hover:border-2 text-2xl font-semibold cursor-pointer transition-colors"
                 aria-label="Increase"
               >
                 +
               </button>
+            </div>
+
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+              <p className="text-sm text-blue-900">
+                <span className="font-medium">Goal: 8 glasses per day.</span>
+              </p>
             </div>
 
             <button
@@ -151,7 +199,7 @@ const MainSection = ({ sectionRef, glassesOfWater, setGlassesOfWater, submitted,
               disabled={glassesOfWater === 0}
               className={`w-full py-3 font-medium transition-colors ${
                 glassesOfWater > 0
-                  ? 'bg-white hover:bg-blue-500 hover:text-white cursor-pointer text-blue-600 border border-blue-600'
+                  ? 'bg-blue-600 hover:bg-blue-900 text-white cursor-pointer'
                   : 'bg-gray-200 text-gray-400 cursor-not-allowed'
               }`}
             >
@@ -160,8 +208,22 @@ const MainSection = ({ sectionRef, glassesOfWater, setGlassesOfWater, submitted,
           </div>
           ) : (
             <>
+              <div className={`border-2 rounded-xl p-6 mb-6`}>
+                  <div className='flex items-start gap-3'>
+                    <div className='mt-1'>{feedback.icon}</div>
+                    <div>
+                      <h2 className='text-lg font-semibold mb-2'>{feedback.message}</h2>
+                      <p className='text sm'>{feedback.details}</p>
+                    </div>
+                  </div>
+              </div>
 
-              
+              <div className="bg-blue-50 rounded-lg p-4 mb-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-gray-900 mb-1">{glassesOfWater}</div>
+                  <div className="text-sm text-gray-600">glasses logged for today</div>
+                </div>
+              </div>
 
               <button
                 onClick={() => {
@@ -175,20 +237,19 @@ const MainSection = ({ sectionRef, glassesOfWater, setGlassesOfWater, submitted,
             </>
           )
         }
-
-      </div>
+      </motion.div>
     </main>
   )
 }
 
 function App() {
-  const [showForm, setShowForm] = useState(false);
+  const [showSection, setShowSection] = useState(false);
   const [glassesOfWater, setGlassesOfWater] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const sectionRef = useRef(null);
 
   const handleScroll = () => {
-    setShowForm(true);
+    setShowSection(true);
     setTimeout(() => {
       sectionRef.current?.scrollIntoView({ behavior: "smooth" });
     }, 50);
@@ -202,18 +263,25 @@ function App() {
 
   return (
     <div className='min-h-screen flex flex-col bg-blue-50'>
-      <Navbar />
-      <Hero handleScroll={handleScroll} />
-      {showForm && 
-        <MainSection 
-        sectionRef={sectionRef} 
-        glassesOfWater={glassesOfWater} 
-        setGlassesOfWater={setGlassesOfWater}
-        submitted={submitted}
-        setSubmitted={setSubmitted}
-        handleSubmit={handleSubmit}/>
+      {!showSection ? 
+        (
+          <>
+            <Navbar />
+            <Hero handleScroll={handleScroll} />
+            <Footer />
+          </>
+        ): 
+        (
+          <MainSection 
+          sectionRef={sectionRef} 
+          glassesOfWater={glassesOfWater} 
+          setGlassesOfWater={setGlassesOfWater}
+          submitted={submitted}
+          setSubmitted={setSubmitted}
+          handleSubmit={handleSubmit}/>
+        )
+        
       }
-      <Footer />
     </div>
   )
 }
