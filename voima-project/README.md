@@ -7,7 +7,7 @@ A small project built with React to support a self-preservation habit for people
 # How to run this application 
 ### 1. Clone the repository
 ```bash
-git clone [text](https://github.com/WillAsampong/Voima-Project-challenge.git)
+git clone [(https://github.com/WillAsampong/Voima-Project-challenge.git)]
 ```
 
 ### 2. Navigate into the project folder
