@@ -27,7 +27,7 @@ npm run dev
 ```
 
 ## Or
-click on this [link](voima-project-challenge.vercel.app)
+Click on this [link](https://voima-project-challenge.vercel.app)
 
 # User Experience
 Users enter the number of glasses of water they’ve taken for the day. The app provides a clear, supportive insight message to help them stay consistent and build a healthy hydration routine.
