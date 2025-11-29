@@ -21,7 +21,7 @@ cd voima-project
 npm install
 ```
 
-### 4. Run the application
+### 4. Stert the development server
 ```bash
 npm run dev
 ```
