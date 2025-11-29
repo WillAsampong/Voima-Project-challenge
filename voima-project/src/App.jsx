@@ -12,7 +12,7 @@ const Navbar = () => {
       <nav className='py-6 mx-8 flex justify-between items-center'>
         <div className="logo">
           <h3 className='uppercase text-white font-bold text-xl tracking-wider'>VOIMA 
-            <span className='text-sm italic tracking-widest lowercase font-thin'> – Your daily hydration tracker</span>
+            <span className='text-sm italic tracking-widest lowercase font-thin hidden md:flex'> – Your daily hydration tracker</span>
           </h3>
         </div>
 
@@ -95,7 +95,8 @@ const MainSection = ({
   setGlassesOfWater, 
   submitted, 
   setSubmitted, 
-  handleSubmit 
+  handleSubmit,
+  setShowSection
 }) => {
   const today = new Date().toLocaleDateString("en-UK", {
     day: "2-digit",
@@ -225,14 +226,22 @@ const MainSection = ({
                 </div>
               </div>
 
+              <button 
+                onClick={() => setSubmitted(false)}
+                className='w-full py-3 font-medium transition-colors bg-blue-600 hover:bg-blue-900 text-white cursor-pointer mb-3'
+              >
+                Update Today's Count
+              </button>
+
               <button
                 onClick={() => {
                   setSubmitted(false)
+                  setShowSection(false)
                   setGlassesOfWater(0)
                 }}
-                className='w-full py-3 font-medium transition-colors bg-blue-600 hover:bg-blue-900 text-white cursor-pointer'
+                className='w-full py-3 font-medium transition-colors bg-transparent border border-blue-500 hover:bg-blue-500 text-blue-600 hover:text-white cursor-pointer'
               >
-                Start Over
+                Go to Home Page
               </button>
             </>
           )
@@ -278,6 +287,7 @@ function App() {
           setGlassesOfWater={setGlassesOfWater}
           submitted={submitted}
           setSubmitted={setSubmitted}
+          setShowSection={setShowSection}
           handleSubmit={handleSubmit}/>
         )
         
