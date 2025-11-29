@@ -1,16 +1,33 @@
-# React + Vite
+# VOIMA Project Challenge
+![Home page of project](/voima-project/src/assets/voima-project-challenge.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# About
+A small project built with React to support a self-preservation habit for people living with Sickle Cell disease. The self-preservation habit this project is built to support is hydration because Sickle Cell patients need constant hydration to improve blood circulation and prevent crisis.
 
-Currently, two official plugins are available:
+# How to run this application 
+### 1. Clone the repository
+```bash
+git clone [text](https://github.com/WillAsampong/Voima-Project-challenge.git)
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 2. Navigate into the project folder
+```bash
+cd Voima-Project-challenge
+cd voima-project
+```
 
-## React Compiler
+### 3. Install Dependencies
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 4. Run the application
+```bash
+npm run dev
+```
 
-## Expanding the ESLint configuration
+## Or
+click on this link [text](voima-project-challenge.vercel.app)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# User Experience
+Users enter the number of glasses of water they’ve taken for the day. The app provides a clear, supportive insight message to help them stay consistent and build a healthy hydration routine.

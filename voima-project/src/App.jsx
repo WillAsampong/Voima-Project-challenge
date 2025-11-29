@@ -11,8 +11,8 @@ const Navbar = () => {
     <header className="absolute z-20 top-0 bg-transparent w-full">
       <nav className='py-6 mx-8 flex justify-between items-center'>
         <div className="logo">
-          <h3 className='uppercase text-white font-bold text-xl tracking-wider'>VOIMA – 
-            <span className='text-sm italic tracking-widest lowercase font-thin'> Your daily hydration tracker</span>
+          <h3 className='uppercase text-white font-bold text-xl tracking-wider'>VOIMA 
+            <span className='text-sm italic tracking-widest lowercase font-thin'> – Your daily hydration tracker</span>
           </h3>
         </div>
 
